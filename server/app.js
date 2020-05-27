@@ -1,6 +1,8 @@
 import { port, mongoURI } from './config/index';
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
+import corsOptions from './api/middlewares/cors';
 
 // Import Routes
 const userLogin = require('./api/routes/user/login');
@@ -12,6 +14,8 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors(corsOptions));
 
 // DB Connect
 mongoose.connect(mongoURI, {
